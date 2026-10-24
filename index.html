@@ -50,17 +50,24 @@
   "offers": [
     {
       "@type": "Offer",
-      "name": "Starter",
+      "name": "Free",
       "price": "0",
       "priceCurrency": "USD",
-      "description": "Free during the beta, then Starter stays free with up to 100 messages a day."
+      "description": "Free during the beta and free after it, with up to 50 messages a day."
+    },
+    {
+      "@type": "Offer",
+      "name": "Starter",
+      "price": "9.99",
+      "priceCurrency": "USD",
+      "description": "9.99 US dollars a month, or 7.49 a month billed yearly, with up to 100 messages a day."
     },
     {
       "@type": "Offer",
       "name": "Pro",
-      "price": "12",
+      "price": "19.99",
       "priceCurrency": "USD",
-      "description": "12 US dollars a month after the beta. No daily message cap, priority replies, a second number for work, and thread export."
+      "description": "19.99 US dollars a month, or 17.49 a month billed yearly, with no daily message cap and priority replies."
     }
   ],
   "featureList": [
@@ -108,7 +115,7 @@
       "name": "What does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access."
+        "text": "It's free during the beta. After it, Free stays free with 50 messages a day, Starter is $9.99 a month and Pro is $19.99 a month — or $7.49 and $17.49 a month if you pay yearly."
       }
     },
     {
@@ -322,7 +329,29 @@
               <p><span class="sr-only">Ping: </span>The invoice for Maya, due Friday. You drafted it Tuesday &mdash; want the totals pasted back?</p>
             </div>
 
-            <p class="demo__stamp stamp" data-step="6"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> typing</p>
+            <div class="line line--out" data-step="6">
+              <span class="line__who" aria-hidden="true">You</span>
+              <p><span class="sr-only">You: </span><span class="msg__line">also add milk to the shopping list</span></p>
+              <p class="msg__meta"><span>Delivered</span></p>
+            </div>
+
+            <div class="line line--in" data-step="7">
+              <span class="line__who" aria-hidden="true">Ping</span>
+              <p><span class="sr-only">Ping: </span>Added: milk, eggs, coffee. Same thread, so it&rsquo;s there next week too.</p>
+            </div>
+
+            <div class="line line--out" data-step="8">
+              <span class="line__who" aria-hidden="true">You</span>
+              <p><span class="sr-only">You: </span><span class="msg__line">what does friday look like</span></p>
+              <p class="msg__meta"><span>Delivered</span></p>
+            </div>
+
+            <div class="line line--in" data-step="9">
+              <span class="line__who" aria-hidden="true">Ping</span>
+              <p><span class="sr-only">Ping: </span>Two things: the invoice for Maya, and the dentist at 4. Saturday is empty.</p>
+            </div>
+
+            <p class="demo__stamp stamp" data-step="10"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> typing</p>
           </div>
 
           <div class="composer-dock" id="composer-dock" aria-hidden="true">
@@ -392,7 +421,7 @@
         </div>
         <div class="specs__row">
           <dt>Cost</dt>
-          <dd><mark class="mark">Free during the beta</mark>, then Starter stays free and Pro is $12 a month. <a class="inline-link" href="#pricing">See the plans</a>.</dd>
+          <dd><mark class="mark">Free during the beta</mark>, then Free is $0, Starter $9.99 and Pro $19.99 a month &mdash; less if you pay yearly. <a class="inline-link" href="#pricing">Compare the plans</a>.</dd>
         </div>
         <div class="specs__row">
           <dt>Data</dt>
@@ -411,50 +440,71 @@
     <div class="shell shell--wide">
       <div class="part__head">
         <span class="stamp part__stamp">9:44 AM</span>
-        <h2 class="headline" id="pricing-title">Two plans. One phone number.</h2>
+        <h2 class="headline" id="pricing-title">Three plans. One phone number.</h2>
         <p class="lede">
-          Everyone testing the beta keeps free access. These are the two plans that start when it ends.
+          Free while the beta runs. When it ends you pick one of these &mdash; switch any time, the number stays the same.
         </p>
       </div>
 
-      <div class="plans">
-        <article class="plan">
-          <h3 class="plan__name">Starter</h3>
-          <p class="plan__price">
-            <span class="plan__amount">Free</span>
-            <span class="plan__per">during the beta, free after it too</span>
-          </p>
-          <p class="plan__note">One number for the everyday questions. A fair-use cap keeps the thread fast for everyone.</p>
-          <ul class="plan__list">
-            <li>One private thread, tied to your number</li>
-            <li>Reminders in plain language</li>
-            <li>Memory across the whole conversation</li>
-            <li>Up to 100 messages a day</li>
-          </ul>
-          <a class="btn btn--quiet btn--lg" href="#signup">Get early access</a>
-        </article>
+      <div class="pricing" id="pricing-panel">
+        <div class="pricing__bar">
+          <div class="billing" role="group" aria-label="Billing period">
+            <button class="billing__opt is-on" type="button" data-period="month" aria-pressed="true">Monthly</button>
+            <button class="billing__opt" type="button" data-period="annual" aria-pressed="false">Annual</button>
+          </div>
+          <p class="pricing__hint" id="billing-hint">Prices per month, billed monthly.</p>
+        </div>
 
-        <article class="plan plan--pro">
-          <span class="plan__flag">Most picked</span>
-          <h3 class="plan__name">Pro</h3>
-          <p class="plan__price">
-            <span class="plan__amount">$12</span>
-            <span class="plan__per">a month, when the beta ends</span>
-          </p>
-          <p class="plan__note">For the thread that runs your week. No daily cap, and the answer comes first in line.</p>
-          <ul class="plan__list">
-            <li>Everything in Starter</li>
-            <li>No daily message cap</li>
-            <li>Priority replies, even at peak hours</li>
-            <li>A second number for work, on the same plan</li>
-            <li>Export the whole thread any time</li>
-          </ul>
-          <a class="btn btn--primary btn--lg" href="#signup">Get early access</a>
-        </article>
+        <div class="tiers" role="radiogroup" aria-label="Choose a plan">
+          <label class="tier is-picked">
+            <input class="tier__input sr-only" type="radio" name="plan" value="free" data-month="0" data-annual="0" checked />
+            <span class="tier__top">
+              <span class="tier__name">Free</span>
+              <span class="tier__badge">Beta</span>
+              <span class="tier__save" data-save></span>
+            </span>
+            <span class="tier__price">
+              <span class="tier__amount" data-price>0</span><span class="tier__cents" data-cents></span>
+              <span class="tier__per">/mo</span>
+            </span>
+            <span class="tier__note">One number, 50 messages a day, reminders in plain language.</span>
+          </label>
+
+          <label class="tier">
+            <input class="tier__input sr-only" type="radio" name="plan" value="starter" data-month="9.99" data-annual="7.49" />
+            <span class="tier__top">
+              <span class="tier__name">Starter</span>
+              <span class="tier__save" data-save></span>
+            </span>
+            <span class="tier__price">
+              <span class="tier__amount" data-price>9</span><span class="tier__cents" data-cents>.99</span>
+              <span class="tier__per">/mo</span>
+            </span>
+            <span class="tier__note">Everything in Free, 100 messages a day, memory that keeps the whole thread.</span>
+          </label>
+
+          <label class="tier">
+            <input class="tier__input sr-only" type="radio" name="plan" value="pro" data-month="19.99" data-annual="17.49" />
+            <span class="tier__top">
+              <span class="tier__name">Pro</span>
+              <span class="tier__save" data-save></span>
+            </span>
+            <span class="tier__price">
+              <span class="tier__amount" data-price>19</span><span class="tier__cents" data-cents>.99</span>
+              <span class="tier__per">/mo</span>
+            </span>
+            <span class="tier__note">No daily cap, priority replies, a second number for work, thread export.</span>
+          </label>
+        </div>
+
+        <div class="pricing__foot">
+          <p class="pricing__summary" id="pricing-summary" aria-live="polite">Free &mdash; no card needed, 50 messages a day.</p>
+          <a class="btn btn--primary btn--lg" href="#signup" id="pricing-cta">Start with Free</a>
+        </div>
       </div>
 
-      <p class="caption plans__fine">
-        Nothing on this page takes payment. Beta testers keep free access, and the Pro price is what it will be charged at launch.
+      <p class="caption pricing__fine">
+        Nothing on this page takes payment. Beta testers keep free access when this pricing starts.
       </p>
     </div>
   </section>
@@ -482,7 +532,7 @@
         </article>
         <article class="faq__item">
           <h3 class="faq__q">What does it cost?</h3>
-          <p class="faq__a">It&rsquo;s free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access.</p>
+          <p class="faq__a">It&rsquo;s free during the beta. After it, Free stays free with 50 messages a day, Starter is $9.99 a month and Pro is $19.99 a month &mdash; or $7.49 and $17.49 a month if you pay yearly.</p>
         </article>
         <article class="faq__item">
           <h3 class="faq__q">Is the conversation private?</h3>
