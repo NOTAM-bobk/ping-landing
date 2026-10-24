@@ -173,6 +173,15 @@ function finishThread() {
   dock.classList.add("is-done");
 }
 
+/* As each message lands, the window follows the newest one, so the last one leaves. */
+function followLog() {
+  if (!screen) return;
+  var target = screen.scrollHeight - screen.clientHeight;
+  if (target <= 0) return;
+  if (screen.scrollTo) screen.scrollTo({ top: target, behavior: "smooth" });
+  else screen.scrollTop = target;
+}
+
 function setComposer(text, typing) {
   if (!composer) return;
   composerText.textContent = text;
@@ -185,6 +194,7 @@ function setComposer(text, typing) {
 function playThread() {
   if (!screen || !steps.length) return;
   screen.classList.add("is-armed");
+  screen.scrollTop = 0;
   var i = 0;
 
   /* the greeting is already on screen once the panel arrives */
@@ -200,6 +210,7 @@ function playThread() {
     if (!isOutgoing(step)) {
       setTimeout(function () {
         step.classList.add("is-in");
+        followLog();
         setTimeout(next, 560);
       }, 360);
       return;
@@ -215,12 +226,13 @@ function playThread() {
       chars += 1;
       setComposer(text.slice(0, chars), true);
       if (chars < text.length) {
-        setTimeout(type, 14 + (chars % 5) * 8);
+        setTimeout(type, 12 + (chars % 5) * 6);
         return;
       }
       setTimeout(function () {
         setComposer("", false);
         step.classList.add("is-in", "is-just-sent");
+        followLog();
         /* the bar flashes as the message leaves it */
         if (composer) {
           composer.classList.add("is-firing");
@@ -281,8 +293,105 @@ function staggerRows(selector) {
   rows.forEach(function (row) { io.observe(row); });
 }
 staggerRows(".specs__row");
-staggerRows(".plan");
+staggerRows(".tier");
 staggerRows(".faq__item");
+
+/* ---------------- Pricing: pick a plan, flip the billing period ---------------- */
+var pricing = document.getElementById("pricing-panel");
+if (pricing) {
+  var periodBtns = Array.prototype.slice.call(pricing.querySelectorAll(".billing__opt"));
+  var tiers = Array.prototype.slice.call(pricing.querySelectorAll(".tier"));
+  var planSummary = document.getElementById("pricing-summary");
+  var planCta = document.getElementById("pricing-cta");
+  var billingHint = document.getElementById("billing-hint");
+  var period = "month";
+  var pricingReady = false;
+  var PLAN_LABEL = { free: "Free", starter: "Starter", pro: "Pro" };
+
+  function money(amount) {
+    return "$" + amount.toFixed(2).replace(/\.00$/, "");
+  }
+
+  function renderPricing() {
+    var annual = period === "annual";
+
+    tiers.forEach(function (tier) {
+      var input = tier.querySelector(".tier__input");
+      var monthPrice = parseFloat(input.getAttribute("data-month"));
+      var yearPrice = parseFloat(input.getAttribute("data-annual"));
+      var value = annual ? yearPrice : monthPrice;
+      var parts = value.toFixed(2).split(".");
+      var amount = tier.querySelector("[data-price]");
+      var cents = tier.querySelector("[data-cents]");
+      var save = tier.querySelector("[data-save]");
+
+      amount.textContent = parts[0];
+      cents.textContent = value > 0 ? "." + parts[1] : "";
+
+      if (monthPrice > 0 && yearPrice < monthPrice) {
+        save.textContent = "Save " + Math.round((1 - yearPrice / monthPrice) * 100) + "%";
+        if (annual) tier.classList.add("has-saving"); else tier.classList.remove("has-saving");
+      } else {
+        save.textContent = "";
+        tier.classList.remove("has-saving");
+      }
+
+      tier.classList.toggle("is-picked", input.checked);
+
+      if (pricingReady && !reduceMotion) {
+        amount.classList.remove("is-roll");
+        cents.classList.remove("is-roll");
+        void amount.offsetWidth;
+        amount.classList.add("is-roll");
+        cents.classList.add("is-roll");
+      }
+    });
+
+    var picked = tiers.filter(function (tier) {
+      return tier.querySelector(".tier__input").checked;
+    })[0] || tiers[0];
+    var input = picked.querySelector(".tier__input");
+    var plan = input.value;
+    var month = parseFloat(input.getAttribute("data-month"));
+    var year = parseFloat(input.getAttribute("data-annual"));
+
+    if (billingHint) {
+      billingHint.textContent = annual ? "Prices per month, billed once a year." : "Prices per month, billed monthly.";
+    }
+
+    if (planSummary) {
+      if (month === 0) {
+        planSummary.textContent = "Free \u2014 no card needed, 50 messages a day.";
+      } else if (annual) {
+        planSummary.textContent = PLAN_LABEL[plan] + " \u00b7 " + money(year) + " a month, billed " +
+          money(year * 12) + " a year.";
+      } else {
+        planSummary.textContent = PLAN_LABEL[plan] + " \u00b7 " + money(month) + " a month, billed monthly.";
+      }
+    }
+
+    if (planCta) planCta.textContent = "Start with " + PLAN_LABEL[plan];
+  }
+
+  periodBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      period = btn.getAttribute("data-period");
+      periodBtns.forEach(function (other) {
+        var on = other === btn;
+        other.classList.toggle("is-on", on);
+        other.setAttribute("aria-pressed", String(on));
+      });
+      renderPricing();
+    });
+  });
+
+  tiers.forEach(function (tier) {
+    tier.querySelector(".tier__input").addEventListener("change", renderPricing);
+  });
+
+  renderPricing();
+  pricingReady = true;
+}
 
 /* Sticky header gains a shadow once the thread scrolls under it. */
 var topbar = document.querySelector(".top");

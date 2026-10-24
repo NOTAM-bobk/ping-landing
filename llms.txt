@@ -24,8 +24,8 @@ Ping is an SMS-based AI messaging platform, not an app or a web chat window. Con
 - Platform: SMS, on any phone that can send a text message.
 - Compatibility: iPhone, Android, and older feature phones.
 - Install size: none.
-- Cost during beta: free, with a fair-use cap of 100 messages a day.
-- Plans after the beta: Starter stays free (up to 100 messages a day); Pro is $12 a month with no daily cap, priority replies, a second number for work, and thread export.
+- Cost during beta: free, with a fair-use cap of 50 messages a day.
+- Plans after the beta: Free stays $0 (up to 50 messages a day); Starter is $9.99 a month or $7.49 a month billed yearly (up to 100 messages a day); Pro is $19.99 a month or $17.49 a month billed yearly (no daily cap).
 - Beta testers: anyone who joined during the beta keeps free access.
 - Groups, voice calls, and large file attachments: not supported.
 
@@ -41,7 +41,7 @@ No. Ping runs over SMS, so there is nothing to install, no account to create, an
 Any phone that can send a text message, including iPhone, Android, and older feature phones.
 
 **What does it cost?**
-It's free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access.
+It's free during the beta. After it, Free stays free with 50 messages a day, Starter is $9.99 a month and Pro is $19.99 a month — or $7.49 and $17.49 a month if you pay yearly.
 
 **Is the conversation private?**
 Replies are tied to the verified phone number rather than a shared account. There are no ads and no data resale, and texting "delete" removes the thread.
@@ -51,8 +51,9 @@ Early access opens in batches; leaving an email on this page puts you in the que
 
 ## Plans
 
-- **Starter** — free during the beta, and free after it with up to 100 messages a day. One private thread, plain-language reminders, memory across the conversation.
-- **Pro** — $12 a month when the beta ends. Everything in Starter, no daily message cap, priority replies at peak hours, a second number for work on the same plan, and thread export.
+- **Free** — $0 during the beta and after it. One private thread, plain-language reminders, up to 50 messages a day.
+- **Starter** — $9.99 a month, or $7.49 a month billed yearly. Everything in Free, 100 messages a day, memory across the whole thread.
+- **Pro** — $19.99 a month, or $17.49 a month billed yearly. Everything in Starter, no daily cap, priority replies at peak hours, a second number for work, and thread export.
 
 Nothing on the page takes payment, and no plan is billed during the beta.
 
