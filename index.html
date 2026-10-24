@@ -139,6 +139,7 @@
   <span class="bg__blob bg__blob--a"></span>
   <span class="bg__blob bg__blob--b"></span>
   <span class="bg__blob bg__blob--c"></span>
+  <span class="bg__blob bg__blob--d"></span>
 </div>
 
 <header class="top" id="nav">
@@ -208,28 +209,17 @@
       <div class="ask__card">
         <span class="ask__eyebrow"><i class="pulse" aria-hidden="true"></i> One quick question</span>
         <h2 class="ask__q" id="ask-q">Would you use this?</h2>
-        <p class="small ask__sub">
-          Tap an answer and it counts toward the total below. No account, no email, nothing else asked.
-        </p>
+        <p class="small ask__sub">One tap. No account, no email.</p>
 
-        <div class="ask__actions">
-          <button class="btn btn--primary btn--lg" id="want-yes" type="button" aria-pressed="false">Yes, I&rsquo;d use it</button>
-          <button class="btn btn--quiet btn--lg" id="want-no" type="button" aria-pressed="false">No, not for me</button>
+        <div class="ask__row">
+          <button class="btn btn--primary btn--sm" id="want-yes" type="button" aria-pressed="false">Yes, I&rsquo;d use it</button>
+          <span class="ask__count">
+            <b id="want-count">1,342</b>
+            <span class="caption">people would use it</span>
+          </span>
         </div>
 
-        <div class="tally">
-          <div class="tally__track" role="img" aria-labelledby="tally-text">
-            <div class="tally__fill" id="tally-fill"></div>
-          </div>
-          <div class="tally__meta">
-            <span id="tally-text">
-              <span class="tally__pct" id="tally-pct">&mdash;</span>
-              <span class="caption" aria-live="polite">of answers say yes</span>
-            </span>
-            <span class="caption mono" id="tally-total" aria-live="polite">&mdash;</span>
-          </div>
-          <div class="tally__note" id="want-note" role="status" aria-live="polite"></div>
-        </div>
+        <p class="ask__note" id="want-note" role="status" aria-live="polite"></p>
       </div>
     </div>
   </section>

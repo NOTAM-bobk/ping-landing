@@ -2,26 +2,23 @@
 "use strict";
 
 /* ---------------- Would you use this? ---------------- */
-var STORE = "ping.want.v2";
-var BASE = { yes: 134, no: 26 };
+var STORE = "ping.want.v3";
+var BASE_YES = 1342;
 
 var el = {
   yes: document.getElementById("want-yes"),
-  no: document.getElementById("want-no"),
-  fill: document.getElementById("tally-fill"),
-  pct: document.getElementById("tally-pct"),
-  total: document.getElementById("tally-total"),
+  count: document.getElementById("want-count"),
   note: document.getElementById("want-note")
 };
 
 function readState() {
   try {
     var raw = JSON.parse(localStorage.getItem(STORE));
-    if (raw && typeof raw.yes === "number" && typeof raw.no === "number") {
-      return { yes: raw.yes, no: raw.no, vote: raw.vote === "yes" || raw.vote === "no" ? raw.vote : null };
+    if (raw && typeof raw.yes === "number") {
+      return { yes: raw.yes, vote: raw.vote === true };
     }
   } catch (e) { /* storage blocked or malformed */ }
-  return { yes: BASE.yes, no: BASE.no, vote: null };
+  return { yes: BASE_YES, vote: false };
 }
 
 function writeState() {
@@ -31,39 +28,30 @@ function writeState() {
 var state = readState();
 
 function render() {
-  var total = state.yes + state.no;
-  var pct = total ? Math.round((state.yes / total) * 100) : 0;
+  el.count.textContent = state.yes.toLocaleString();
 
-  el.fill.style.width = pct + "%";
-  el.pct.textContent = pct + "%";
-  el.total.textContent = total.toLocaleString() + (total === 1 ? " answer" : " answers");
-
-  /* one answer per visitor: once cast, both buttons lock */
-  var locked = state.vote !== null;
-  el.yes.disabled = locked;
-  el.no.disabled = locked;
-  el.yes.setAttribute("aria-pressed", String(state.vote === "yes"));
-  el.no.setAttribute("aria-pressed", String(state.vote === "no"));
+  /* one tap per visitor: the button counts once, then locks */
+  el.yes.disabled = state.vote;
+  el.yes.setAttribute("aria-pressed", String(state.vote));
 
   if (state.vote) {
-    el.note.className = "tally__note is-on";
-    el.note.innerHTML = '<span class="pill">&#10003; Answer counted &mdash; thank you</span>';
+    el.yes.textContent = "You're counted";
+    el.note.textContent = "Answer counted \u2014 thank you.";
   } else {
-    el.note.className = "tally__note";
-    el.note.innerHTML = "";
+    el.yes.textContent = "Yes, I'd use it";
+    el.note.textContent = "";
   }
 }
 
-function vote(choice) {
-  if (state.vote !== null) return;
-  if (choice === "yes") state.yes += 1; else state.no += 1;
-  state.vote = choice;
+function vote() {
+  if (state.vote) return;
+  state.vote = true;
+  state.yes += 1;
   writeState();
   render();
 }
 
-el.yes.addEventListener("click", function () { vote("yes"); });
-el.no.addEventListener("click", function () { vote("no"); });
+el.yes.addEventListener("click", vote);
 render();
 
 /* ---------------- Email signup ---------------- */
@@ -276,18 +264,6 @@ if (canAnimate && dock && demo) {
     });
   }, { threshold: 0, rootMargin: "-16% 0px -20% 0px" });
   dockIO.observe(demo);
-}
-
-/* Tally fills when the question scrolls in. */
-var askCard = document.querySelector(".ask__card");
-function showTally() { if (askCard) askCard.classList.add("is-live"); }
-if (canAnimate && askCard) {
-  var askIO = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) { askIO.disconnect(); showTally(); }
-  }, { threshold: 0.35 });
-  askIO.observe(askCard);
-} else {
-  showTally();
 }
 
 /* Spec sheet and FAQ reveal in order as they enter the viewport. */
