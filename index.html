@@ -47,12 +47,22 @@
   "operatingSystem": "iOS, Android, any SMS-capable phone",
   "description": "Ping is an AI assistant you reach by text message. Save one phone number, text it from any phone, and it replies to that same number in seconds, with no app to install and no account to create.",
   "isAccessibleForFree": true,
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "description": "Free during the beta, with a fair-use cap on messages per day."
-  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Starter",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free during the beta, then Starter stays free with up to 100 messages a day."
+    },
+    {
+      "@type": "Offer",
+      "name": "Pro",
+      "price": "12",
+      "priceCurrency": "USD",
+      "description": "12 US dollars a month after the beta. No daily message cap, priority replies, a second number for work, and thread export."
+    }
+  ],
   "featureList": [
     "AI assistant over SMS text message",
     "Reminders set in plain language",
@@ -82,7 +92,7 @@
       "name": "Do I need to download an app?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Ping runs over SMS, so there is nothing to install, no account to create, and no password to remember. You only save a phone number."
+        "text": "No. Ping runs over SMS, so there is nothing to install, no account to create, and no password to remember. You only save a number."
       }
     },
     {
@@ -90,7 +100,7 @@
       "name": "Which phones does it work on?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Any phone that can send a text message, including iPhone, Android, and older feature phones."
+        "text": "Any phone that can send a text message — iPhone, Android, or an older feature phone. If it has SMS, it works."
       }
     },
     {
@@ -98,7 +108,7 @@
       "name": "What does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ping is free during the beta, with a fair-use cap on messages per day. Pricing after the beta has not been announced."
+        "text": "It's free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access."
       }
     },
     {
@@ -106,7 +116,7 @@
       "name": "Is the conversation private?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Replies are tied to your verified phone number rather than a shared account. There are no ads and no data resale, and texting \"delete\" removes the thread."
+        "text": "Your thread is tied to your verified number, not a shared account. There are no ads and no resale, and texting \"delete\" removes the conversation."
       }
     },
     {
@@ -114,7 +124,7 @@
       "name": "How do I get early access?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Early access opens in batches. Leaving an email on the Ping page puts you in the queue, and you get a text when your line is live."
+        "text": "Lines open in batches. Leave an email on this page and we'll text your number the day it's live."
       }
     }
   ]
@@ -142,6 +152,7 @@
     <nav class="top__nav" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#details">Details</a>
+      <a href="#pricing">Pricing</a>
       <a href="#faq">Questions</a>
     </nav>
     <a class="btn btn--light btn--sm top__cta" href="#signup">Get early access</a>
@@ -279,47 +290,64 @@
       </div>
 
       <div class="how__grid">
-        <div class="how__demo">
-      <div class="screen">
-        <div class="screen__top">
-          <span class="screen__avatar" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 8.5 19.5 16 11 23.5" /></svg>
-          </span>
-          <span class="screen__id">
-            <span class="screen__name">Ping</span>
-            <span class="screen__sub">+1 (415) 555-0142</span>
-          </span>
-        </div>
-        <div class="screen__body" role="log" aria-label="Sample text conversation between you and Ping">
-          <p class="stamp">9:41 AM</p>
-          <article class="msg msg--in" data-step="1">
-            <p><span class="sr-only">Ping: </span>Hey &mdash; this is Ping. Save this number and text me whenever.</p>
-          </article>
-          <article class="msg msg--out" data-step="2">
-            <p><span class="sr-only">You: </span><span class="msg__line">remind me to call the dentist at 4</span></p>
-            <p class="msg__meta"><span>Delivered</span></p>
-          </article>
-          <article class="msg msg--in" data-step="3">
-            <p><span class="sr-only">Ping: </span>Set for 4:00 PM today. I&rsquo;ll text you here.</p>
-          </article>
-          <article class="msg msg--out" data-step="4">
-            <p><span class="sr-only">You: </span><span class="msg__line">what was that invoice thing again</span></p>
-            <p class="msg__meta"><span>Delivered</span></p>
-          </article>
-          <article class="msg msg--in" data-step="5">
-            <p><span class="sr-only">Ping: </span>The invoice for Maya, due Friday. You drafted it Tuesday &mdash; want the totals pasted back?</p>
-          </article>
-          <p class="stamp" data-step="6"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> typing</p>
-        </div>
-        <div class="composer is-empty" id="composer" aria-hidden="true">
-          <div class="composer__field">
-            <span class="composer__placeholder">Text message</span>
-            <span class="composer__text" id="composer-text"></span>
-            <span class="composer__caret"></span>
+        <div class="how__demo" id="demo">
+          <div class="demo__head">
+            <span class="demo__avatar" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 8.5 19.5 16 11 23.5" /></svg>
+            </span>
+            <span class="demo__id">
+              <span class="demo__name">Ping</span>
+              <span class="demo__sub mono">+1 (415) 555-0142</span>
+            </span>
+            <span class="demo__live"><i aria-hidden="true"></i> Texting</span>
           </div>
-          <span class="composer__send">&#8593;</span>
-        </div>
-      </div>
+
+          <div class="demo__log" id="demo-log" role="log" aria-label="Sample text conversation between you and Ping">
+            <p class="demo__stamp stamp">Today 9:41 AM</p>
+
+            <div class="line line--in" data-step="1">
+              <span class="line__who" aria-hidden="true">Ping</span>
+              <p><span class="sr-only">Ping: </span>Hey &mdash; this is Ping. Save this number and text me whenever.</p>
+            </div>
+
+            <div class="line line--out" data-step="2">
+              <span class="line__who" aria-hidden="true">You</span>
+              <p><span class="sr-only">You: </span><span class="msg__line">remind me to call the dentist at 4</span></p>
+              <p class="msg__meta"><span>Delivered</span></p>
+            </div>
+
+            <div class="line line--in" data-step="3">
+              <span class="line__who" aria-hidden="true">Ping</span>
+              <p><span class="sr-only">Ping: </span>Set for 4:00 PM today. I&rsquo;ll text you here.</p>
+            </div>
+
+            <div class="line line--out" data-step="4">
+              <span class="line__who" aria-hidden="true">You</span>
+              <p><span class="sr-only">You: </span><span class="msg__line">what was that invoice thing again</span></p>
+              <p class="msg__meta"><span>Delivered</span></p>
+            </div>
+
+            <div class="line line--in" data-step="5">
+              <span class="line__who" aria-hidden="true">Ping</span>
+              <p><span class="sr-only">Ping: </span>The invoice for Maya, due Friday. You drafted it Tuesday &mdash; want the totals pasted back?</p>
+            </div>
+
+            <p class="demo__stamp stamp" data-step="6"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> typing</p>
+          </div>
+
+          <div class="composer-dock" id="composer-dock" aria-hidden="true">
+            <div class="composer is-empty" id="composer">
+              <span class="composer__mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 8.5 19.5 16 11 23.5" /></svg>
+              </span>
+              <div class="composer__field">
+                <span class="composer__placeholder">Text message</span>
+                <span class="composer__text" id="composer-text"></span>
+                <span class="composer__caret"></span>
+              </div>
+              <span class="composer__send">&#8593;</span>
+            </div>
+          </div>
         </div>
 
         <div class="how__side">
@@ -374,7 +402,7 @@
         </div>
         <div class="specs__row">
           <dt>Cost</dt>
-          <dd><mark class="mark">Free during the beta</mark>, with a fair-use cap on messages per day.</dd>
+          <dd><mark class="mark">Free during the beta</mark>, then Starter stays free and Pro is $12 a month. <a class="inline-link" href="#pricing">See the plans</a>.</dd>
         </div>
         <div class="specs__row">
           <dt>Data</dt>
@@ -385,6 +413,59 @@
           <dd>Group chats, voice calls, or anything needing a file bigger than a photo. It&rsquo;s a text thread.</dd>
         </div>
       </dl>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section class="part" id="pricing" aria-labelledby="pricing-title">
+    <div class="shell shell--wide">
+      <div class="part__head">
+        <span class="stamp part__stamp">9:44 AM</span>
+        <h2 class="headline" id="pricing-title">Two plans. One phone number.</h2>
+        <p class="lede">
+          Everyone testing the beta keeps free access. These are the two plans that start when it ends.
+        </p>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <h3 class="plan__name">Starter</h3>
+          <p class="plan__price">
+            <span class="plan__amount">Free</span>
+            <span class="plan__per">during the beta, free after it too</span>
+          </p>
+          <p class="plan__note">One number for the everyday questions. A fair-use cap keeps the thread fast for everyone.</p>
+          <ul class="plan__list">
+            <li>One private thread, tied to your number</li>
+            <li>Reminders in plain language</li>
+            <li>Memory across the whole conversation</li>
+            <li>Up to 100 messages a day</li>
+          </ul>
+          <a class="btn btn--quiet btn--lg" href="#signup">Get early access</a>
+        </article>
+
+        <article class="plan plan--pro">
+          <span class="plan__flag">Most picked</span>
+          <h3 class="plan__name">Pro</h3>
+          <p class="plan__price">
+            <span class="plan__amount">$12</span>
+            <span class="plan__per">a month, when the beta ends</span>
+          </p>
+          <p class="plan__note">For the thread that runs your week. No daily cap, and the answer comes first in line.</p>
+          <ul class="plan__list">
+            <li>Everything in Starter</li>
+            <li>No daily message cap</li>
+            <li>Priority replies, even at peak hours</li>
+            <li>A second number for work, on the same plan</li>
+            <li>Export the whole thread any time</li>
+          </ul>
+          <a class="btn btn--primary btn--lg" href="#signup">Get early access</a>
+        </article>
+      </div>
+
+      <p class="caption plans__fine">
+        Nothing on this page takes payment. Beta testers keep free access, and the Pro price is what it will be charged at launch.
+      </p>
     </div>
   </section>
 
@@ -411,7 +492,7 @@
         </article>
         <article class="faq__item">
           <h3 class="faq__q">What does it cost?</h3>
-          <p class="faq__a">It&rsquo;s free during the beta, with a fair-use cap on messages per day. Pricing after the beta hasn&rsquo;t been announced.</p>
+          <p class="faq__a">It&rsquo;s free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access.</p>
         </article>
         <article class="faq__item">
           <h3 class="faq__q">Is the conversation private?</h3>
@@ -456,6 +537,7 @@
         <h2 class="foot__title">Product</h2>
         <a href="#how">How it works</a>
         <a href="#details">Details</a>
+        <a href="#pricing">Pricing</a>
         <a href="#faq">Questions</a>
       </nav>
 
