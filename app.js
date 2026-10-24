@@ -164,10 +164,26 @@ var canAnimate = !reduceMotion && "IntersectionObserver" in window;
 
 if (canAnimate) document.documentElement.classList.add("js-anim");
 
-var screen = document.querySelector(".screen");
+var screen = document.querySelector(".demo__log");
 var steps = screen ? Array.prototype.slice.call(screen.querySelectorAll("[data-step]")) : [];
 var composer = document.getElementById("composer");
 var composerText = document.getElementById("composer-text");
+var dock = document.getElementById("composer-dock");
+var demo = document.getElementById("demo");
+var threadDone = false;
+
+function isOutgoing(node) {
+  return node.classList.contains("msg--out") || node.classList.contains("line--out");
+}
+
+/* The composer leaves with the last message. */
+function finishThread() {
+  threadDone = true;
+  if (demo) demo.classList.add("is-done");
+  if (!dock) return;
+  dock.classList.remove("is-live");
+  dock.classList.add("is-done");
+}
 
 function setComposer(text, typing) {
   if (!composer) return;
@@ -184,16 +200,16 @@ function playThread() {
   var i = 0;
 
   /* the greeting is already on screen once the panel arrives */
-  if (steps[0] && !steps[0].classList.contains("msg--out")) {
+  if (steps[0] && !isOutgoing(steps[0])) {
     steps[0].classList.add("is-in");
     i = 1;
   }
 
   function next() {
-    if (i >= steps.length) { setComposer("", false); return; }
+    if (i >= steps.length) { setComposer("", false); finishThread(); return; }
     var step = steps[i++];
 
-    if (!step.classList.contains("msg--out")) {
+    if (!isOutgoing(step)) {
       setTimeout(function () {
         step.classList.add("is-in");
         setTimeout(next, 560);
@@ -217,6 +233,11 @@ function playThread() {
       setTimeout(function () {
         setComposer("", false);
         step.classList.add("is-in", "is-just-sent");
+        /* the bar flashes as the message leaves it */
+        if (composer) {
+          composer.classList.add("is-firing");
+          setTimeout(function () { composer.classList.remove("is-firing"); }, 500);
+        }
         if (receipt) {
           receipt.classList.add("is-sending");
           setTimeout(function () {
@@ -241,8 +262,20 @@ if (canAnimate && screen && steps.length) {
       threadIO.disconnect();
       playThread();
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0, rootMargin: "-12% 0px -18% 0px" });
   threadIO.observe(screen);
+}
+
+/* The input bar is fixed at the bottom of the viewport only while the demo
+   section is in front of you, so it never floats over the rest of the page. */
+if (canAnimate && dock && demo) {
+  var dockIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (threadDone) return;
+      dock.classList.toggle("is-live", entry.isIntersecting);
+    });
+  }, { threshold: 0, rootMargin: "-16% 0px -20% 0px" });
+  dockIO.observe(demo);
 }
 
 /* Tally fills when the question scrolls in. */
@@ -272,6 +305,7 @@ function staggerRows(selector) {
   rows.forEach(function (row) { io.observe(row); });
 }
 staggerRows(".specs__row");
+staggerRows(".plan");
 staggerRows(".faq__item");
 
 /* Sticky header gains a shadow once the thread scrolls under it. */

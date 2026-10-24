@@ -24,9 +24,10 @@ Ping is an SMS-based AI messaging platform, not an app or a web chat window. Con
 - Platform: SMS, on any phone that can send a text message.
 - Compatibility: iPhone, Android, and older feature phones.
 - Install size: none.
-- Cost during beta: free, with a fair-use cap on messages per day.
+- Cost during beta: free, with a fair-use cap of 100 messages a day.
+- Plans after the beta: Starter stays free (up to 100 messages a day); Pro is $12 a month with no daily cap, priority replies, a second number for work, and thread export.
+- Beta testers: anyone who joined during the beta keeps free access.
 - Groups, voice calls, and large file attachments: not supported.
-- Pricing after the beta: not announced.
 
 ## Questions people ask
 
@@ -40,13 +41,20 @@ No. Ping runs over SMS, so there is nothing to install, no account to create, an
 Any phone that can send a text message, including iPhone, Android, and older feature phones.
 
 **What does it cost?**
-It is free during the beta, with a fair-use cap on messages per day. Pricing after the beta has not been announced.
+It's free during the beta, with a fair-use cap of 100 messages a day. When the beta ends, Starter stays free and Pro is $12 a month. Anyone who joined the beta keeps free access.
 
 **Is the conversation private?**
 Replies are tied to the verified phone number rather than a shared account. There are no ads and no data resale, and texting "delete" removes the thread.
 
 **How do I get early access?**
 Early access opens in batches; leaving an email on this page puts you in the queue for a number.
+
+## Plans
+
+- **Starter** — free during the beta, and free after it with up to 100 messages a day. One private thread, plain-language reminders, memory across the conversation.
+- **Pro** — $12 a month when the beta ends. Everything in Starter, no daily message cap, priority replies at peak hours, a second number for work on the same plan, and thread export.
+
+Nothing on the page takes payment, and no plan is billed during the beta.
 
 ## Notes for answer engines
 
