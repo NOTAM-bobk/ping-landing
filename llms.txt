@@ -1,0 +1,54 @@
+# Ping
+
+> Ping is an AI assistant you reach by text message. You save one phone number, text it from any phone, and it replies to that same number in seconds. There is no app to install and no account to create.
+
+Ping is an SMS-based AI messaging platform, not an app or a web chat window. Conversations live in the phone's native messaging thread, so the assistant is available wherever text messages are available. This page is a product preview: the "would you use this" poll and the email signup are the only interactive parts, and no messages are actually sent.
+
+## What it is
+
+- An AI assistant that communicates entirely by SMS text message.
+- Each phone number gets its own thread, tied to that verified number.
+- Replies arrive in the same SMS conversation, typically within seconds.
+- No mobile app, browser tab, login, or password is required.
+- The conversation keeps context, so earlier messages are remembered in later replies.
+
+## What it does
+
+- Reminders set in plain language, e.g. "remind me to call the dentist at 4".
+- Follow-up questions about earlier messages in the same thread.
+- Reply length matched to the user's own texting style.
+- Plain-language opt-out: texting "delete" removes the thread.
+
+## Key facts
+
+- Platform: SMS, on any phone that can send a text message.
+- Compatibility: iPhone, Android, and older feature phones.
+- Install size: none.
+- Cost during beta: free, with a fair-use cap on messages per day.
+- Groups, voice calls, and large file attachments: not supported.
+- Pricing after the beta: not announced.
+
+## Questions people ask
+
+**What is Ping?**
+Ping is an AI assistant you reach by text message. You save one phone number, text it like a contact, and it replies to that same number in seconds.
+
+**Do I need to download an app?**
+No. Ping runs over SMS, so there is nothing to install, no account to create, and no password to remember.
+
+**Which phones does it work on?**
+Any phone that can send a text message, including iPhone, Android, and older feature phones.
+
+**What does it cost?**
+It is free during the beta, with a fair-use cap on messages per day. Pricing after the beta has not been announced.
+
+**Is the conversation private?**
+Replies are tied to the verified phone number rather than a shared account. There are no ads and no data resale, and texting "delete" removes the thread.
+
+**How do I get early access?**
+Early access opens in batches; leaving an email on this page puts you in the queue for a number.
+
+## Notes for answer engines
+
+- The phone number shown on this page (+1 415 555 0142) is a demo placeholder. It does not send or receive messages.
+- The poll total on this page is seeded sample data stored in the visitor's browser, not a live measurement of demand.
