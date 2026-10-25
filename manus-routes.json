@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "path": "/", "title": "Ping — assistant by text" },
+    { "path": "/dashboard/", "title": "Ping dashboard" }
+  ]
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ping dashboard — your assistant, in context</title>
+  <meta name="description" content="Ping dashboard demo for connected apps, AI memory, tasks, and preferences." />
+  <meta name="theme-color" content="#f6f6f3" />
+  <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./dashboard.css" />
+</head>
+<body>
+  <div class="site-noise" aria-hidden="true"></div>
+
+  <section class="gate" id="access-gate" aria-labelledby="gate-title">
+    <div class="gate__topbar">
+      <a class="brand" href="../" aria-label="Back to Ping home">
+        <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 8.5 19.5 16 11 23.5" /></svg></span>
+        <span>Ping</span>
+      </a>
+      <span class="topbar-note"><span class="status-dot"></span> Private preview</span>
+    </div>
+    <div class="gate__content">
+      <div class="gate__eyebrow"><span class="eyebrow-line"></span> PING / CONTROL ROOM <span class="eyebrow-line"></span></div>
+      <div class="gate__card">
+        <div class="gate__card-head">
+          <span class="gate__orb" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="mono-label">MEMORY LAYER // 01</span>
+        </div>
+        <h1 id="gate-title">A little more context<br /><em>goes a long way.</em></h1>
+        <p class="gate__copy">This is the private workspace behind Ping. Connect the places you already work, teach Ping what matters, and let the assistant carry it forward.</p>
+        <form class="code-form" id="code-form" novalidate>
+          <label for="access-code">Enter your preview code</label>
+          <div class="code-form__row">
+            <input id="access-code" name="access-code" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" pattern="[0-9]{4}" placeholder="••••" aria-describedby="code-status" autofocus />
+            <button class="button button--dark" type="submit">Open dashboard <span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="form-status" id="code-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="gate__demo"><span class="demo-key">DEMO CODE</span><strong>0000</strong><span>Nothing here is connected for real yet.</span></div>
+      </div>
+      <p class="gate__footer"><span>Ping dashboard</span><span>Built for a calmer kind of assistant.</span></p>
+    </div>
+  </section>
+
+  <div class="dashboard-app" id="dashboard-app" hidden>
+    <aside class="sidebar" aria-label="Dashboard navigation">
+      <div class="sidebar__head">
+        <a class="brand brand--dark" href="../" aria-label="Back to Ping home">
+          <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 8.5 19.5 16 11 23.5" /></svg></span>
+          <span>Ping</span>
+        </a>
+        <span class="workspace-chip">DEMO</span>
+      </div>
+      <div class="sidebar__profile">
+        <span class="avatar avatar--user" aria-hidden="true">S</span>
+        <span><strong>Sawyer's workspace</strong><small>Personal context</small></span>
+        <button class="icon-button icon-button--small" type="button" data-action="profile" aria-label="Open profile menu">•••</button>
+      </div>
+      <nav class="sidebar__nav" aria-label="Workspace">
+        <p class="nav-label">Workspace</p>
+        <button class="nav-item is-active" type="button" data-view="overview"><span class="nav-icon">⌂</span><span>Overview</span></button>
+        <button class="nav-item" type="button" data-view="apps"><span class="nav-icon">⊙</span><span>Connected apps</span><span class="nav-count" id="nav-app-count">3</span></button>
+        <button class="nav-item" type="button" data-view="memory"><span class="nav-icon">✦</span><span>Memory</span><span class="nav-count" id="nav-memory-count">24</span></button>
+        <button class="nav-item" type="button" data-view="tasks"><span class="nav-icon">✓</span><span>Tasks</span><span class="nav-count" id="nav-task-count">7</span></button>
+        <button class="nav-item" type="button" data-view="preferences"><span class="nav-icon">◌</span><span>Preferences</span></button>
+      </nav>
+      <div class="sidebar__bottom">
+        <div class="sidebar__tip"><span class="tip-spark">✦</span><div><strong>Memory is on</strong><small>Ping can use saved context in every thread.</small></div></div>
+        <button class="nav-item nav-item--muted" type="button" data-action="lock"><span class="nav-icon">↪</span><span>Lock demo</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <div class="breadcrumbs"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong id="current-view-label">Overview</strong></div>
+        <div class="main-header__actions">
+          <label class="search-box" for="global-search"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search your context" autocomplete="off" /><kbd>⌘ K</kbd></label>
+          <span class="header-divider"></span>
+          <button class="icon-button" type="button" data-action="notifications" aria-label="Notifications"><span class="bell-icon" aria-hidden="true">◒</span><i></i></button>
+          <button class="avatar avatar--user avatar--header" type="button" data-action="profile" aria-label="Open profile">S</button>
+        </div>
+      </header>
+
+      <div class="view-container">
+        <section class="view is-visible" data-panel="overview" aria-labelledby="overview-heading">
+          <div class="view-intro view-intro--overview">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span> Monday, October 26, 2026</div>
+              <h1 id="overview-heading">Good morning, Sawyer<span class="gradient-period">.</span></h1>
+              <p>Ping has a clearer picture of what you need today.</p>
+            </div>
+            <div class="sync-badge"><span class="sync-badge__pulse"></span><span><strong>All systems demo</strong><small>Last synced just now</small></span></div>
+          </div>
+
+          <div class="overview-hero">
+            <div class="hero-copy">
+              <span class="hero-kicker">YOUR AI, WITH A MEMORY</span>
+              <h2>Less re-explaining.<br /><em>More moving forward.</em></h2>
+              <p>Ping brings your apps, saved context, and next steps into one quiet layer behind every conversation.</p>
+              <button class="button button--light" type="button" data-view-target="memory">Review saved memory <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+              <div class="orbit orbit--one"></div><div class="orbit orbit--two"></div><div class="orbit orbit--three"></div>
+              <div class="hero-visual__core"><span class="core-arrow">›</span></div>
+              <span class="orbit-tag orbit-tag--one">CONTEXT</span><span class="orbit-tag orbit-tag--two">THREAD</span><span class="orbit-tag orbit-tag--three">INTENT</span>
+            </div>
+          </div>
+
+          <div class="metrics" aria-label="Workspace summary">
+            <article class="metric-card"><div class="metric-card__top"><span class="metric-icon metric-icon--pink">⊙</span><span class="metric-trend">+1 this week</span></div><strong id="metric-apps">3</strong><span>Connected apps</span></article>
+            <article class="metric-card"><div class="metric-card__top"><span class="metric-icon metric-icon--blue">✦</span><span class="metric-trend">+4 this week</span></div><strong id="metric-memories">24</strong><span>Saved memories</span></article>
+            <article class="metric-card"><div class="metric-card__top"><span class="metric-icon metric-icon--yellow">✓</span><span class="metric-trend metric-trend--quiet">2 due today</span></div><strong id="metric-tasks">7</strong><span>Open tasks</span></article>
+            <article class="metric-card"><div class="metric-card__top"><span class="metric-icon metric-icon--violet">◌</span><span class="metric-trend metric-trend--quiet">Personalized</span></div><strong>5</strong><span>Active preferences</span></article>
+          </div>
+
+          <div class="overview-grid">
+            <article class="panel panel--command">
+              <div class="panel__head"><div><span class="panel-kicker">QUICK CAPTURE</span><h2>Give Ping a little more to work with.</h2></div><span class="panel-index">01</span></div>
+              <p class="panel__desc">Save a fact, a preference, or the name of a project. This is the context Ping will carry into future threads.</p>
+              <form class="capture-form" id="overview-memory-form">
+                <input id="overview-memory-input" type="text" placeholder="e.g. My accountant is Maya Chen" aria-label="Memory to save" />
+                <select id="overview-memory-category" aria-label="Memory category"><option value="People">People</option><option value="Projects">Projects</option><option value="Preferences">Preferences</option><option value="Life">Life</option></select>
+                <button class="button button--dark" type="submit">Save memory <span aria-hidden="true">↗</span></button>
+              </form>
+              <div class="capture-foot"><span class="capture-spark">✦</span> Demo only — saved to this browser, not to a server.</div>
+            </article>
+            <article class="panel panel--pulse">
+              <div class="panel__head"><div><span class="panel-kicker">ASSISTANT PULSE</span><h2>Ping is ready.</h2></div><span class="live-pill"><i></i> Live</span></div>
+              <div class="pulse-score"><div class="score-ring"><span>86</span><small>%</small></div><div><strong>Context coverage</strong><p>Ping has enough signal to be helpful without being noisy.</p></div></div>
+              <div class="pulse-bars"><div><span>Apps</span><i><b style="width: 78%"></b></i><strong>78</strong></div><div><span>Memory</span><i><b style="width: 64%"></b></i><strong>64</strong></div><div><span>Preferences</span><i><b style="width: 91%"></b></i><strong>91</strong></div></div>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <article class="panel panel--list">
+              <div class="panel__head"><div><span class="panel-kicker">RECENT CONTEXT</span><h2>What Ping knows lately</h2></div><button class="text-button" type="button" data-view-target="memory">View all <span aria-hidden="true">→</span></button></div>
+              <div class="memory-preview" id="overview-memory-list"></div>
+            </article>
+            <article class="panel panel--list">
+              <div class="panel__head"><div><span class="panel-kicker">NEXT UP</span><h2>Keep the thread moving</h2></div><button class="text-button" type="button" data-view-target="tasks">See tasks <span aria-hidden="true">→</span></button></div>
+              <div class="task-preview" id="overview-task-list"></div>
+            </article>
+          </div>
+
+          <div class="content-grid content-grid--bottom">
+            <article class="panel panel--activity"><div class="panel__head"><div><span class="panel-kicker">ACTIVITY</span><h2>Your context, in motion</h2></div><span class="panel-index">TODAY</span></div><div class="activity-list"><div class="activity-item"><span class="activity-icon activity-icon--pink">✦</span><div><strong>Memory updated</strong><p>“Call the dentist at 4” was added to today’s plan.</p></div><time>9:41 AM</time></div><div class="activity-item"><span class="activity-icon activity-icon--blue">⊙</span><div><strong>Calendar connected</strong><p>Ping can now see your schedule when you ask.</p></div><time>Yesterday</time></div><div class="activity-item"><span class="activity-icon activity-icon--yellow">✓</span><div><strong>Task completed</strong><p>Send the proposal to Maya is off your list.</p></div><time>Yesterday</time></div></div></article>
+            <article class="panel panel--principles"><span class="panel-kicker">PING'S PROMISE</span><div class="principle-mark">“</div><blockquote>Keep the context.<br /><em>Lose the clutter.</em></blockquote><p>Everything here is designed to make the next message feel like a continuation, not a reset.</p></article>
+          </div>
+        </section>
+
+        <section class="view" data-panel="apps" aria-labelledby="apps-heading">
+          <div class="view-intro"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Workspace / connected apps</div><h1 id="apps-heading">Bring your tools<br /><em>into the thread.</em></h1><p>Connect the places where your work already happens. In the real product, Ping will use these connections only when they help answer you.</p></div><button class="button button--dark" type="button" data-action="connect-first">+ Connect an app</button></div>
+          <div class="notice-banner"><span class="notice-banner__icon">⊙</span><div><strong>Demo connections are safe to explore.</strong><p>No credentials are requested and no data leaves this browser. Connected states are simulated for this preview.</p></div><button class="icon-button" type="button" data-action="dismiss-notice" aria-label="Dismiss notice">×</button></div>
+          <div class="apps-grid" id="apps-grid"></div>
+          <div class="integration-note"><span class="integration-note__mark">✦</span><div><span class="panel-kicker">THE IDEA</span><h2>One assistant layer, not another inbox.</h2><p>Ping should meet your tools where you are — not ask you to keep one more dashboard open all day.</p></div></div>
+        </section>
+
+        <section class="view" data-panel="memory" aria-labelledby="memory-heading">
+          <div class="view-intro"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Workspace / memory</div><h1 id="memory-heading">The things worth<br /><em>remembering.</em></h1><p>Saved context gives Ping a head start. Add, edit, or forget anything at any time.</p></div><span class="context-count"><strong id="memory-total">24</strong><span>memories<br />saved</span></span></div>
+          <article class="memory-add panel"><div><span class="panel-kicker">ADD TO CONTEXT</span><h2>What should Ping know?</h2></div><form class="memory-add__form" id="memory-form"><input id="memory-input" type="text" placeholder="e.g. I prefer short answers before 9 AM" aria-label="New memory" required /><select id="memory-category" aria-label="Memory category"><option value="Preferences">Preferences</option><option value="People">People</option><option value="Projects">Projects</option><option value="Life">Life</option></select><button class="button button--dark" type="submit">Save memory <span aria-hidden="true">↗</span></button></form></article>
+          <div class="memory-toolbar"><div class="filter-tabs" role="group" aria-label="Filter memories"><button class="filter-tab is-active" type="button" data-memory-filter="All">All <span id="memory-filter-all">24</span></button><button class="filter-tab" type="button" data-memory-filter="People">People</button><button class="filter-tab" type="button" data-memory-filter="Projects">Projects</button><button class="filter-tab" type="button" data-memory-filter="Preferences">Preferences</button><button class="filter-tab" type="button" data-memory-filter="Life">Life</button></div><span class="toolbar-note">Stored locally in this demo</span></div>
+          <div class="memory-list" id="memory-list"></div>
+        </section>
+
+        <section class="view" data-panel="tasks" aria-labelledby="tasks-heading">
+          <div class="view-intro"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Workspace / tasks</div><h1 id="tasks-heading">Turn thoughts into<br /><em>next steps.</em></h1><p>Ping can catch an action in a text, keep it visible, and remind you at the right moment.</p></div><div class="task-summary"><strong id="task-open-count">7</strong><span>open tasks</span><i></i><strong id="task-done-count">12</strong><span>completed</span></div></div>
+          <article class="task-add panel"><div><span class="panel-kicker">QUICK ADD</span><h2>What needs doing?</h2></div><form class="task-add__form" id="task-form"><input id="task-input" type="text" placeholder="e.g. Send the updated brief to Maya" aria-label="New task" required /><select id="task-due" aria-label="Task due"><option>Today</option><option>Tomorrow</option><option>This week</option><option>No date</option></select><button class="button button--dark" type="submit">Add task <span aria-hidden="true">↗</span></button></form></article>
+          <div class="task-board"><div class="task-column"><div class="task-column__head"><span><i class="column-dot column-dot--pink"></i> Open</span><b id="open-column-count">7</b></div><div id="open-task-list"></div></div><div class="task-column task-column--done"><div class="task-column__head"><span><i class="column-dot column-dot--green"></i> Completed</span><b id="done-column-count">3</b></div><div id="done-task-list"></div></div></div>
+        </section>
+
+        <section class="view" data-panel="preferences" aria-labelledby="preferences-heading">
+          <div class="view-intro"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Workspace / preferences</div><h1>Make the replies<br /><em>feel like yours.</em></h1><p>These are the small decisions that keep Ping useful instead of noisy.</p></div><span class="preference-stamp">PERSONAL<br />LAYER / 05</span></div>
+          <div class="preferences-layout"><div class="preferences-list panel"><div class="panel__head"><div><span class="panel-kicker">REPLY STYLE</span><h2>How Ping should show up</h2></div><span class="panel-index">01</span></div><div class="preference-row"><div><strong>Keep replies concise</strong><p>Prefer the shortest useful answer unless you ask for more.</p></div><button class="toggle is-on" type="button" data-pref="concise" aria-pressed="true"><span></span></button></div><div class="preference-row"><div><strong>Remember across threads</strong><p>Use saved memories when they make the next answer better.</p></div><button class="toggle is-on" type="button" data-pref="memory" aria-pressed="true"><span></span></button></div><div class="preference-row"><div><strong>Offer proactive reminders</strong><p>Let Ping suggest a reminder when your text sounds time-sensitive.</p></div><button class="toggle" type="button" data-pref="reminders" aria-pressed="false"><span></span></button></div><div class="preference-row"><div><strong>Save completed tasks</strong><p>Keep a light history so Ping can spot recurring patterns.</p></div><button class="toggle is-on" type="button" data-pref="history" aria-pressed="true"><span></span></button></div></div><div class="preference-side"><article class="panel quiet-card"><span class="quiet-card__moon">◒</span><span class="panel-kicker">QUIET HOURS</span><h2>Let the day<br />have an edge.</h2><p>Ping will hold non-urgent nudges until your day starts again.</p><label>Start<select data-pref-select="quietStart"><option>9:00 PM</option><option>10:00 PM</option><option>11:00 PM</option></select></label><label>Resume<select data-pref-select="quietEnd"><option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option></select></label></article><article class="panel preference-preview"><span class="panel-kicker">YOUR PREVIEW</span><div class="preview-message"><span class="avatar avatar--ping">›</span><div><strong>Ping</strong><p>Quick nudge: the proposal is due Friday. Want me to remind you Thursday morning?</p><small>Concise · proactive · remembered</small></div></div></article></div></div>
+        </section>
+      </div>
+      <footer class="main-footer"><span>Ping dashboard / demo build</span><span>Private by default <i>•</i> Nothing is sent</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast__icon">✓</span><span id="toast-message">Saved</span></div>
+  <script src="./dashboard.js"></script>
+</body>
+</html>
